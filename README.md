@@ -1,13 +1,13 @@
 # Morning News Briefing
 
-A Claude Code Routine that runs every morning at 9:00 AM EDT, searches the web for the latest AI, tech, cloud, and finance news, and delivers a formatted HTML email digest via Brevo SMTP.
+A Claude Code Routine that runs every morning at 9:00 AM EDT, searches the web for the latest AI, tech, cloud, and finance news, and delivers a formatted HTML email digest via the Brevo API.
 
 ## How It Works
 
 1. A scheduled Claude Code Routine triggers daily on Anthropic's cloud infrastructure
 2. Claude searches the web for news from the past 24 hours across AI, tech, cloud, and finance
 3. Claude compiles the findings into a formatted HTML email
-4. `send_briefing.py` sends it via Brevo SMTP from a dedicated Outlook address to iCloud
+4. `send_briefing.py` sends it via the Brevo HTTPS transactional email API from a dedicated Outlook address to iCloud
 
 No local machine or open terminal required — runs entirely on Anthropic's cloud.
 
@@ -15,8 +15,8 @@ No local machine or open terminal required — runs entirely on Anthropic's clou
 
 ```
 morning-news-briefing/
-├── send_briefing.py     # SMTP sender — reads HTML from stdin, sends via Brevo
-├── requirements.txt     # Empty — smtplib is Python stdlib, nothing to install
+├── send_briefing.py     # Sender — reads HTML from stdin, POSTs to the Brevo API
+├── requirements.txt     # requests
 └── README.md
 ```
 
@@ -26,8 +26,7 @@ Set in the Claude Code cloud environment (`daily news briefing`), not in this re
 
 | Variable | Description |
 |---|---|
-| `BREVO_SMTP_USER` | Brevo SMTP login (e.g. `xxxxx@smtp-brevo.com`) |
-| `BREVO_SMTP_PASS` | Brevo SMTP key |
+| `BREVO_API_KEY` | Brevo v3 API key (not the SMTP login/pass) |
 | `BRIEFING_FROM` | Sender address (Outlook) |
 | `BRIEFING_TO` | Recipient address (iCloud) |
 
